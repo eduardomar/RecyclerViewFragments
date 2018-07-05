@@ -6,4 +6,5 @@
     <string name="lblNameContact">Name</string>
     <string name="lblPhoneContact">Phone</string>
     <string name="lblEmailContact">Email</string>
+    <string name="lblLikesContact">0 likes</string>
 </resources>

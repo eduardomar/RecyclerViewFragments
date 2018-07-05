@@ -11,30 +11,32 @@ import android.view.ViewGroup
 import com.lalo.recyclerviewfragments.R
 import com.lalo.recyclerviewfragments.adapter.ContactAdapter
 import com.lalo.recyclerviewfragments.pojo.Contact
+import com.lalo.recyclerviewfragments.presenter.IRecyclerViewFragmentPresenter
+import com.lalo.recyclerviewfragments.presenter.RecyclerViewFragmentPresenter
 
-class RecyclerViewFragment : Fragment() {
-    private var rvContacts: RecyclerView?
-    private val lstContacts : ArrayList<Contact>
-    private val llm : LinearLayoutManager
+class RecyclerViewFragment : Fragment(), IRecyclerViewFragmentView {
+    //private val rvContacts by lazy { view!!.findViewById<RecyclerView>(R.id.rvContacts) }
+    //private val irp by lazy { RecyclerViewFragmentPresenter(this, this.context!!) }
+    private var rvContacts: RecyclerView? = null
 
-    init {
-        this.rvContacts = null
-        this.lstContacts = ArrayList()
-        this.lstContacts.add(Contact(R.drawable.ic_tongue_emoticon, "Eduardo Ramírez", "445 104 61 86", "eramirez@freshsoftwareconcepts.com"))
-        this.lstContacts.add(Contact(R.drawable.ic_confused_emoticon, "Carlos Fuentes", "+1 (520) 245-2866", "cfuentes@freshsoftware.co"))
-        this.lstContacts.add(Contact(R.drawable.ic_love_emoticon, "Enrique Noriega", "+1 (520) 245-2866", "enrique@freshsoftware.co"))
-        this.lstContacts.add(Contact(R.drawable.ic_mute_emoticon, "Javier Barajas", "445 108 5650", "javierbarajas@freshsoftwareconcepts.com"))
-        this.lstContacts.add(Contact(R.drawable.ic_tired_emoticon, "Huberto Luna", "662 338 2046", "uluna@freshsoftwareconcepts.com"))
+    override fun createLinearLayoutVertical() {
+        val llm : LinearLayoutManager = LinearLayoutManager(this.activity)
+        llm.orientation = LinearLayoutManager.VERTICAL
+        this.rvContacts?.layoutManager = llm
+    }
 
-        this.llm = LinearLayoutManager(this.activity)
-        this.llm.orientation = LinearLayoutManager.VERTICAL
+    override fun createAdapter(lst: ArrayList<Contact>): ContactAdapter {
+        return ContactAdapter(lst, this.activity as Activity)
+    }
+
+    override fun initAdapter(adapter: ContactAdapter) {
+        this.rvContacts?.adapter = adapter
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         var v = inflater.inflate(R.layout.fragment_recycler_view, container, false)
-        this.rvContacts = v.findViewById(R.id.rvContacts) as RecyclerView
-        this.rvContacts?.layoutManager = llm
-        this.rvContacts?.adapter = ContactAdapter(this.lstContacts, getActivity() as Activity)
+        this.rvContacts = v.findViewById<RecyclerView>(R.id.rvContacts)
+        val irp = RecyclerViewFragmentPresenter(this, this.context!!)
 
         return v;
     }
