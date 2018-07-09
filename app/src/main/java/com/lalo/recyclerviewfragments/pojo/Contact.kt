@@ -4,27 +4,17 @@ import android.os.Parcel
 import android.os.Parcelable
 
 class Contact : Parcelable {
-    public var id: Int
+    public var id: String
         get() = field
         set(value) {
             field = value
         }
-    public var photo: Int
+    public var username: String
         get() = field
         set(value) {
             field = value
         }
-    public var name: String
-        get() = field
-        set(value) {
-            field = value
-        }
-    public var phone: String
-        get() = field
-        set(value) {
-            field = value
-        }
-    public var email: String
+    public var urlPhoto: String
         get() = field
         set(value) {
             field = value
@@ -35,26 +25,22 @@ class Contact : Parcelable {
             field = value
         }
 
-    constructor() : this(0, 0, "", "", "", 0) {
+    constructor() : this("", "", "", 0) {
     }
 
-    constructor(id: Int, photo: Int, name: String, phone: String, email: String, likes: Int) {
+    constructor(id: String, username: String, urlPhoto: String, likes: Int) {
         this.id = id
-        this.photo = photo
-        this.name = name
-        this.phone = phone
-        this.email = email
+        this.username = username
+        this.urlPhoto = urlPhoto
         this.likes = likes
     }
 
-    constructor(pa: Parcel) : this(pa.readInt(), pa.readInt(), pa.readString(), pa.readString(), pa.readString(), pa.readInt()) {}
+    constructor(pa: Parcel) : this(pa.readString(), pa.readString(), pa.readString(), pa.readInt()) {}
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(this.id)
-        parcel.writeInt(this.photo)
-        parcel.writeString(this.name)
-        parcel.writeString(this.phone)
-        parcel.writeString(this.email)
+        parcel.writeString(this.id)
+        parcel.writeString(this.username)
+        parcel.writeString(this.urlPhoto)
         parcel.writeInt(this.likes)
     }
 

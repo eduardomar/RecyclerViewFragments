@@ -36,7 +36,7 @@ class RecyclerViewFragment : Fragment(), IRecyclerViewFragmentView {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         var v = inflater.inflate(R.layout.fragment_recycler_view, container, false)
         this.rvContacts = v.findViewById<RecyclerView>(R.id.rvContacts)
-        val irp = RecyclerViewFragmentPresenter(this, this.context!!)
+        RecyclerViewFragmentPresenter(this, this.context!!)
 
         return v;
     }
