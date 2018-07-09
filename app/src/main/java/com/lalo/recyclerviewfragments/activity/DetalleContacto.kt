@@ -19,6 +19,7 @@ import com.lalo.recyclerviewfragments.pojo.Contact
 import android.app.AlertDialog
 import android.support.v7.widget.CardView
 import android.widget.ImageView
+import com.squareup.picasso.Picasso
 
 class DetalleContacto : AppCompatActivity() {
     private val imgFotoDetalle by lazy { this.findViewById<ImageView>(R.id.imgFotoDetalle) }
@@ -29,6 +30,10 @@ class DetalleContacto : AppCompatActivity() {
         setContentView(R.layout.activity_detalle_contacto_foto)
 
         val contact = this.intent.extras!!.getParcelable<Contact>("Contacto")
-        this.tvLikesDetalle.text = contact.likes.toString() + " likes"
+        Picasso.get().load(contact.urlPhoto)
+                .placeholder(R.drawable.ic_love_emoticon)
+                .into(imgFotoDetalle)
+
+        this.tvLikesDetalle.text = contact.likes.toString()
     }
 }

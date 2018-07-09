@@ -6,6 +6,7 @@ import com.lalo.recyclerviewfragments.pojo.Contact
 
 interface IRecyclerViewFragmentView {
     fun createLinearLayoutVertical()
+    fun createGridLayout()
     fun createAdapter(lst: ArrayList<Contact>): ContactAdapter
     fun initAdapter(adapter: ContactAdapter)
 }

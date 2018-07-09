@@ -3,6 +3,7 @@ package com.lalo.recyclerviewfragments.fragment
 import android.app.Activity
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -23,6 +24,11 @@ class RecyclerViewFragment : Fragment(), IRecyclerViewFragmentView {
         val llm : LinearLayoutManager = LinearLayoutManager(this.activity)
         llm.orientation = LinearLayoutManager.VERTICAL
         this.rvContacts?.layoutManager = llm
+    }
+
+    override fun createGridLayout() {
+        var glm = GridLayoutManager(this.activity, 2)
+        this.rvContacts?.layoutManager = glm
     }
 
     override fun createAdapter(lst: ArrayList<Contact>): ContactAdapter {

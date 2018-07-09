@@ -16,11 +16,12 @@ import com.lalo.recyclerviewfragments.R
 import com.lalo.recyclerviewfragments.activity.DetalleContacto
 import com.lalo.recyclerviewfragments.db.ConstructorContacts
 import com.lalo.recyclerviewfragments.pojo.Contact
+import com.squareup.picasso.Picasso
 import java.util.ArrayList
 
 class ContactAdapter(private val contacts: ArrayList<Contact>, private val activity: Activity) : RecyclerView.Adapter<ContactAdapter.ContactViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.cardview_contacto, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.cardview_grid_contacto, parent, false)
 
         return ContactViewHolder(v)
     }
@@ -31,6 +32,18 @@ class ContactAdapter(private val contacts: ArrayList<Contact>, private val activ
 
     override fun onBindViewHolder(holder: ContactViewHolder, index: Int) { // Asocia cada elemento de la lista con cada view
         val contact = this.contacts[index]
+        Picasso.get().load(contact.urlPhoto)
+                .placeholder(R.drawable.ic_love_emoticon)
+                .into(holder.imgFoto)
+
+        holder.imgFoto.setOnClickListener {
+            Toast.makeText(activity, contact.username, Toast.LENGTH_SHORT).show()
+            val i = Intent(activity, DetalleContacto::class.java)
+            i.putExtra("Contacto", contact)
+
+            activity.startActivity(i)
+        }
+        holder.tvLikes.setText(contact.likes.toString())
     }
 
     class ContactViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
